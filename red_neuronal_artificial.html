@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Red Neuronal Artificial</title>
+</head>
+
+<body>
+
+  <h1>Red Neuronal Artificial</h1>
+
+  <!-- IMAGEN RELACIONADA -->
+<img src=" images/Colored_neural_network_es.svg.png" width="200" height="250" alt="Red Neuronal Artificial" >
+
+  <!-- ÍNDICE DE NAVEGACIÓN INTERNA -->
+  <h2>Índice</h2>
+  <ul>
+    <li><a href="#definicion">Definición</a></li>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#estructura">Estructura y Funcionamiento</a>
+      <ul>
+        <li><a href="#neurona">La Neurona Artificial</a></li>
+        <li><a href="#capas">Capas de una Red Neuronal</a></li>
+        <li><a href="#entrenamiento">Entrenamiento</a></li>
+      </ul>
+    </li>
+    <li><a href="#tipos">Tipos de Redes Neuronales</a></li>
+    <li><a href="#aplicaciones">Aplicaciones</a></li>
+    <li><a href="#limitaciones">Limitaciones</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+  </ul>
+
+  <!-- DEFINICIÓN -->
+  <h2 id="definicion">Definición</h2>
+  <p>
+    Una red neuronal artificial (abreviada ANN o RNA, del inglés Artificial Neural Network) es un modelo computacional dentro de los llamados sistemas conexionistas, inspirado en la estructura y función de las redes neuronales biológicas presentes en los cerebros animales. Forma parte del campo del aprendizaje automático y, por extensión, de la inteligencia artificial.
+  </p>
+  <p>
+    Una ANN consta de unidades o nodos conectados llamados neuronas artificiales, que modelan de manera simplificada el funcionamiento de las neuronas del cerebro. Estas están conectadas entre sí mediante bordes que representan las sinapsis biológicas. Cada neurona artificial recibe señales de las neuronas conectadas, las procesa y envía una señal a otras neuronas. La fuerza de la señal en cada conexión está determinada por un valor numérico llamado peso, que se ajusta durante el proceso de aprendizaje.
+  </p>
+  <p>
+    Las redes neuronales artificiales se utilizan para diversas tareas como el modelado predictivo, el control adaptativo y la resolución de problemas complejos. Sobresalen especialmente en áreas donde la detección de soluciones o características es difícil de expresar con la programación convencional basada en reglas, como el reconocimiento de imágenes, la comprensión del lenguaje natural o la traducción automática.
+  </p>
+  <p>
+    Las redes neuronales actuales suelen contener desde unos miles hasta varios miles de millones de unidades neuronales. Los modelos de lenguaje más grandes del mundo, como GPT-4 o Claude, están construidos sobre arquitecturas de redes neuronales con cientos de miles de millones de parámetros.
+  </p>
+
+  <!--  HISTORIA -->
+  <h2 id="historia">Historia</h2>
+  <p>
+    Los orígenes de las redes neuronales artificiales se remontan a 1943, cuando Warren McCulloch y Walter Pitts crearon el primer modelo computacional inspirado en el funcionamiento del cerebro, conocido como lógica umbral. Este modelo sentó las bases para dos grandes enfoques de investigación: uno orientado al estudio de los procesos biológicos cerebrales y otro enfocado en las aplicaciones de la inteligencia artificial.
+  </p>
+  <p>
+    A finales de la década de 1940, el psicólogo Donald Hebb formuló una hipótesis de aprendizaje basada en la plasticidad neuronal, hoy conocida como aprendizaje hebbiano: la idea de que las conexiones entre neuronas que se activan juntas se fortalecen. Este principio se convirtió en la base del aprendizaje no supervisado y sigue siendo influyente en la teoría de redes neuronales.
+  </p>
+  <p>
+    En 1958, Frank Rosenblatt creó el perceptrón, el primer algoritmo de reconocimiento de patrones basado en una red de aprendizaje de dos capas. Sin embargo, en 1969 Marvin Minsky y Seymour Papert demostraron las limitaciones del perceptrón de una sola capa, lo que provocó un período de menor interés y financiación en el área, conocido como el primer "invierno de la IA".
+  </p>
+  <p>
+    El resurgimiento llegó en 1986, cuando David Rumelhart, Geoffrey Hinton y Ronald Williams popularizaron el algoritmo de retropropagación (backpropagation), que permitió entrenar redes con múltiples capas de manera eficiente. Esto abrió la puerta al desarrollo de redes más profundas y poderosas. Décadas después, con la disponibilidad de grandes conjuntos de datos y el poder de las GPUs, el aprendizaje profundo (deep learning) se convirtió en el paradigma dominante de la inteligencia artificial moderna.
+  </p>
+  <p>
+    Un hito clave fue 2012, cuando la red neuronal convolucional AlexNet, desarrollada por Geoffrey Hinton y su equipo, ganó el concurso ImageNet con una diferencia significativa respecto a los métodos tradicionales, demostrando el potencial del deep learning para el reconocimiento de imágenes. Desde entonces, el campo ha crecido de manera exponencial.
+  </p>
+
+  <!--  ESTRUCTURA Y FUNCIONAMIENTO -->
+  <h2 id="estructura">Estructura y Funcionamiento</h2>
+
+  <h3 id="neurona">La Neurona Artificial</h3>
+  <p>
+    La unidad básica de una red neuronal artificial es la neurona artificial, también llamada nodo o unidad. Está inspirada en la neurona biológica, aunque es una simplificación matemática de la misma. Cada neurona recibe una o más entradas numéricas, las pondera según el peso de cada conexión, las suma, y aplica una función de activación sobre ese resultado para producir una salida.
+  </p>
+  <p>
+    La función de activación es fundamental porque introduce no linealidad en el modelo, lo que permite a la red aprender relaciones complejas. Entre las funciones de activación más usadas se encuentran:
+  </p>
+  <ul>
+    <li><strong>Sigmoide:</strong> Produce valores entre 0 y 1, útil para clasificación binaria.</li>
+    <li><strong>ReLU (Rectified Linear Unit):</strong> Devuelve el valor de entrada si es positivo, y 0 si es negativo. Es la más utilizada en redes profundas modernas por su eficiencia computacional.</li>
+    <li><strong>Tanh:</strong> Similar a la sigmoide pero produce valores entre -1 y 1.</li>
+    <li><strong>Softmax:</strong> Usada en la capa de salida para clasificación multiclase, convierte los valores en probabilidades que suman 1.</li>
+  </ul>
+
+  <h3 id="capas">Capas de una Red Neuronal</h3>
+  <p>
+    Las neuronas de una red neuronal se organizan en capas. En una arquitectura estándar existen tres tipos:
+  </p>
+  <ul>
+    <li><strong>Capa de entrada:</strong> Recibe los datos del exterior. Cada nodo representa una característica del dato de entrada (por ejemplo, un píxel de una imagen o una palabra de un texto).</li>
+    <li><strong>Capas ocultas:</strong> Son las capas intermedias donde ocurre el procesamiento. Cada capa aprende a detectar características cada vez más abstractas. Una red con al menos dos capas ocultas se denomina red neuronal profunda.</li>
+    <li><strong>Capa de salida:</strong> Produce el resultado final del modelo, como una clasificación, una predicción numérica o una secuencia de texto.</li>
+  </ul>
+  <p>
+    Las señales viajan en la mayoría de los casos desde la capa de entrada hacia la capa de salida, lo que se conoce como propagación hacia adelante (forward propagation). La profundidad de una red (cantidad de capas ocultas) y su anchura (cantidad de neuronas por capa) determinan su capacidad para aprender representaciones complejas.
+  </p>
+
+  <h3 id="entrenamiento">Entrenamiento</h3>
+  <p>
+    El entrenamiento de una red neuronal consiste en ajustar los pesos de todas las conexiones para que el modelo produzca salidas lo más cercanas posible a los valores esperados. Este proceso se realiza en varias etapas:
+  </p>
+  <ul>
+    <li><strong>Forward pass:</strong> Los datos de entrada se propagan a través de la red y se obtiene una predicción.</li>
+    <li><strong>Cálculo del error:</strong> Se mide la diferencia entre la predicción y el resultado correcto mediante una función de pérdida (loss function), como el error cuadrático medio o la entropía cruzada.</li>
+    <li><strong>Backpropagation:</strong> El error se propaga hacia atrás a través de la red, calculando el gradiente de la función de pérdida respecto a cada peso.</li>
+    <li><strong>Actualización de pesos:</strong> Se ajustan los pesos en la dirección que reduce el error, usando algoritmos de optimización como el descenso de gradiente estocástico (SGD) o Adam.</li>
+  </ul>
+  <p>
+    Este proceso se repite durante múltiples iteraciones sobre el conjunto de datos de entrenamiento (épocas) hasta que el modelo alcanza un desempeño aceptable. Un desafío importante es evitar el sobreajuste (overfitting), es decir, que la red memorice los datos de entrenamiento pero no generalice bien a datos nuevos.
+  </p>
+
+  <!--  TIPOS -->
+  <h2 id="tipos">Tipos de Redes Neuronales</h2>
+  <p>
+    A lo largo de las décadas se han desarrollado distintas arquitecturas de redes neuronales, cada una diseñada para resolver tipos específicos de problemas:
+  </p>
+  <ul>
+    <li><strong>Perceptrón multicapa (MLP):</strong> La arquitectura más básica de red profunda. Consiste en capas totalmente conectadas (dense layers) y es adecuada para datos tabulares y problemas de clasificación general.</li>
+    <li><strong>Redes convolucionales (CNN):</strong> Especializadas en el procesamiento de imágenes y video. Utilizan filtros que se deslizan sobre la entrada para detectar características locales como bordes, texturas y formas. Son la base de los sistemas de visión artificial.</li>
+    <li><strong>Redes recurrentes (RNN):</strong> Diseñadas para procesar secuencias de datos, como texto, audio o series temporales. Incorporan conexiones cíclicas que permiten que la información de pasos anteriores influya en los siguientes, lo que les da una especie de "memoria".</li>
+    <li><strong>LSTM y GRU:</strong> Variantes mejoradas de las RNN que resuelven el problema del desvanecimiento del gradiente en secuencias largas, mediante puertas que regulan el flujo de información.</li>
+    <li><strong>Redes residuales (ResNet):</strong> Introducen conexiones de salto (skip connections) que permiten entrenar redes muy profundas sin degradación del rendimiento. Son el tema central del artículo sobre <a href="tema3.html">Red Neuronal Residual</a>.</li>
+    <li><strong>Transformers:</strong> Arquitectura basada en mecanismos de atención que permite procesar secuencias en paralelo. Es la base de los modelos de lenguaje modernos como GPT, BERT y Claude, y ha reemplazado en gran medida a las RNN para tareas de procesamiento del lenguaje natural.</li>
+    <li><strong>Redes generativas antagónicas (GAN):</strong> Compuestas por dos redes que compiten entre sí: un generador que crea datos sintéticos y un discriminador que intenta distinguirlos de los reales. Son la base de muchos sistemas de generación de imágenes.</li>
+  </ul>
+
+  <!--  APLICACIONES -->
+  <h2 id="aplicaciones">Aplicaciones</h2>
+  <p>
+    Las redes neuronales artificiales son la tecnología subyacente de la mayoría de los sistemas de inteligencia artificial modernos. Sus aplicaciones abarcan prácticamente todos los campos del conocimiento:
+  </p>
+  <ul>
+    <li><strong>Visión por computadora:</strong> Reconocimiento facial, detección de objetos, diagnóstico médico por imágenes, conducción autónoma.</li>
+    <li><strong>Procesamiento del lenguaje natural:</strong> Traducción automática, generación de texto, análisis de sentimientos, chatbots y asistentes virtuales.</li>
+    <li><strong>Reconocimiento de voz:</strong> Transcripción automática, asistentes como Siri o Alexa, sistemas de dictado.</li>
+    <li><strong>Juegos y simulación:</strong> AlphaGo y AlphaZero de DeepMind, que dominaron los juegos de Go y ajedrez respectivamente, usan redes neuronales profundas combinadas con aprendizaje por refuerzo.</li>
+    <li><strong>Ciencia:</strong> Predicción de estructuras de proteínas (AlphaFold), simulación de fenómenos físicos, descubrimiento de fármacos.</li>
+    <li><strong>Finanzas:</strong> Detección de fraudes, predicción de mercados, evaluación de riesgos crediticios.</li>
+    <li><strong>Arte generativo:</strong> Generación de imágenes, música, video y texto mediante modelos como Stable Diffusion, DALL-E o Suno.</li>
+  </ul>
+
+  <!--  LIMITACIONES -->
+  <h2 id="limitaciones">Limitaciones</h2>
+  <p>
+    A pesar de sus impresionantes capacidades, las redes neuronales artificiales presentan limitaciones importantes que son objeto de investigación activa:
+  </p>
+  <ul>
+    <li><strong>Caja negra:</strong> Es difícil interpretar por qué una red produce una determinada salida. Esta falta de explicabilidad es problemática en aplicaciones críticas como la medicina o la justicia.</li>
+    <li><strong>Necesidad de grandes volúmenes de datos:</strong> Los modelos profundos requieren enormes cantidades de datos etiquetados para entrenarse correctamente, lo que puede ser costoso o difícil de obtener.</li>
+    <li><strong>Alto costo computacional:</strong> Entrenar modelos grandes requiere hardware especializado (GPUs o TPUs) y un consumo energético significativo.</li>
+    <li><strong>Sobreajuste:</strong> Sin técnicas adecuadas de regularización, las redes tienden a memorizar los datos de entrenamiento en lugar de generalizar.</li>
+    <li><strong>Sesgo en los datos:</strong> Si los datos de entrenamiento contienen sesgos, el modelo los aprenderá y reproducirá, lo que puede tener consecuencias éticas negativas.</li>
+    <li><strong>Fragilidad ante ataques adversariales:</strong> Pequeñas perturbaciones en los datos de entrada, imperceptibles para los humanos, pueden engañar a una red neuronal y hacerla cometer errores graves.</li>
+  </ul>
+
+  <!-- REFERENCIAS -->
+  <h2 id="referencias">Referencias</h2>
+  <ul>
+    <li><a href="inteligencia_artificial.html">Inteligencia Artificial</a></li>
+    <li><a href="red_neuronal_residual.html">Red Neuronal Residual</a></li>
+    <li><a href="https://es.wikipedia.org/wiki/Red_neuronal_artificial">Artículo original en Wikipedia: Red Neuronal Artificial</a></li>
+  </ul>
+
+</body>
+</html>

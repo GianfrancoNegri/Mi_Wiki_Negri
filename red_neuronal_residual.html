@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Red Neuronal Residual</title>
+</head>
+
+<body>
+
+  <h1>Red Neuronal Residual</h1>
+
+  <!-- IMAGEN RELACIONADA -->
+  <img src="images/ResBlock.png" alt="Red Neuronal Residual" width="200">
+
+  <!-- ÍNDICE DE NAVEGACIÓN INTERNA -->
+  <h2>Índice</h2>
+  <ul>
+    <li><a href="#definicion">Definición</a></li>
+    <li><a href="#problema">El Problema de la Degradación</a></li>
+    <li><a href="#historia">Historia y Origen</a></li>
+    <li><a href="#funcionamiento">Funcionamiento</a>
+      <ul>
+        <li><a href="#conexion-salto">Conexiones de Salto</a></li>
+        <li><a href="#bloque-residual">El Bloque Residual</a></li>
+        <li><a href="#gradiente">Ventaja sobre el Gradiente</a></li>
+      </ul>
+    </li>
+    <li><a href="#variantes">Variantes y Modelos</a></li>
+    <li><a href="#aplicaciones">Aplicaciones e Influencia</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+  </ul>
+
+  <!-- DEFINICIÓN -->
+  <h2 id="definicion">Definición</h2>
+  <p>
+    Una red neuronal residual, también conocida como ResNet (del inglés Residual Network), es un modelo de aprendizaje profundo en el que las capas de pesos aprenden funciones residuales con referencia a las entradas de las capas. Se distingue de las redes neuronales convencionales por la incorporación de conexiones de salto (skip connections) que conectan directamente la entrada de un bloque de capas con su salida, sin pasar por las transformaciones intermedias.
+  </p>
+  <p>
+    Estas conexiones de salto realizan lo que se llama un mapeo de identidad: simplemente suman la entrada original a la salida transformada del bloque. Esta aparentemente pequeña modificación tuvo un impacto enorme en el campo del aprendizaje profundo, ya que permitió entrenar redes con decenas, centenas e incluso miles de capas de manera estable y eficiente, algo que era prácticamente imposible antes de su introducción.
+  </p>
+  <p>
+    Las ResNet son actualmente uno de los modelos más influyentes en la historia del aprendizaje profundo. Sus conexiones residuales no solo se usan en visión por computadora, sino que son un componente fundamental de los Transformers, la arquitectura que impulsa a los modelos de lenguaje modernos como GPT, BERT y Claude.
+  </p>
+
+  <!--EL PROBLEMA DE LA DEGRADACIÓN -->
+  <h2 id="problema">El Problema de la Degradación</h2>
+  <p>
+    Para entender por qué las redes residuales son importantes, es necesario comprender el problema que venían a resolver: la degradación de las redes neuronales profundas.
+  </p>
+  <p>
+    En teoría, una red neuronal más profunda (con más capas) debería ser capaz de aprender representaciones más complejas y obtener mejores resultados que una red más superficial. Si las capas adicionales no aportaran nada, lo peor que podría ocurrir es que simplemente copiaran la entrada tal cual, sin modificarla (función identidad), obteniendo el mismo resultado que la red más pequeña.
+  </p>
+  <p>
+    Sin embargo, en la práctica se observó lo contrario: a partir de cierta profundidad, agregar más capas empeoraba el rendimiento, incluso en los datos de entrenamiento. Este fenómeno, llamado problema de la degradación, no se debía al sobreajuste sino a dificultades en la optimización: los algoritmos de entrenamiento no lograban ajustar correctamente los pesos en redes muy profundas.
+  </p>
+  <p>
+    Por ejemplo, el modelo AlexNet de 2012 tenía 8 capas. Las redes VGG desarrolladas en 2014 por la Universidad de Oxford llegaron a 19 capas, pero al intentar profundizar más allá de eso, la precisión comenzaba a caer. El problema de la degradación fue la motivación directa para el desarrollo de las redes residuales.
+  </p>
+
+  <!--  HISTORIA Y ORIGEN -->
+  <h2 id="historia">Historia y Origen</h2>
+  <p>
+    Las redes neuronales residuales fueron desarrolladas por Kaiming He, Xiangyu Zhang, Shaoqing Ren y Jian Sun, investigadores de Microsoft Research Asia. Su artículo "Deep Residual Learning for Image Recognition" fue presentado en 2015 y se convirtió en uno de los trabajos más citados en la historia de la inteligencia artificial.
+  </p>
+  <p>
+    El equipo ganó el concurso ImageNet Large Scale Visual Recognition Challenge (ILSVRC) de 2015 con una red de 152 capas, superando ampliamente a todos los competidores y logrando una tasa de error top-5 del 3,57%, por debajo del error humano estimado en esa tarea. Este resultado demostró de manera contundente que la idea del aprendizaje residual funcionaba.
+  </p>
+  <p>
+    Cabe mencionar que la idea de las conexiones de salto no era completamente nueva. Las redes LSTM, propuestas en 1997 por Hochreiter y Schmidhuber para el procesamiento de secuencias, ya utilizaban un mecanismo similar internamente. Sin embargo, He et al. fueron los primeros en formalizar y aplicar sistemáticamente este concepto a redes convolucionales profundas, demostrando su efectividad a gran escala.
+  </p>
+  <p>
+    El trabajo tuvo un impacto inmediato y duradero en el campo. A partir de 2015, las conexiones residuales se convirtieron en un componente estándar en el diseño de redes neuronales profundas, y su influencia se extendió rápidamente más allá de la visión por computadora hacia el procesamiento del lenguaje natural y otras áreas.
+  </p>
+
+  <!--  FUNCIONAMIENTO -->
+  <h2 id="funcionamiento">Funcionamiento</h2>
+
+  <h3 id="conexion-salto">Conexiones de Salto</h3>
+  <p>
+    El mecanismo central de una red residual es la conexión de salto (skip connection), también llamada conexión residual o atajo (shortcut). En una red neuronal convencional, la información fluye únicamente de una capa a la siguiente de forma secuencial. En una red residual, la entrada de un bloque de capas también se conecta directamente a la salida de ese bloque, sumándose al resultado transformado.
+  </p>
+  <p>
+    Esta conexión directa permite que la información fluya sin obstáculos a través de la red, incluso saltando varias capas. Si las capas intermedias aprenden una función poco útil o incluso negativa, la conexión de salto garantiza que al menos la señal original llegue sin degradarse a las capas más profundas. En el peor caso, la red puede simplemente aprender a ignorar las capas intermedias, haciendo que la función residual sea cero y dejando solo la identidad.
+  </p>
+
+  <h3 id="bloque-residual">El Bloque Residual</h3>
+  <p>
+    La unidad básica de una red residual es el bloque residual. En lugar de aprender directamente la función subyacente que transforma la entrada en la salida deseada, las capas del bloque aprenden la diferencia (o residuo) entre esa función y la identidad. Si llamamos F(x) a lo que aprenden las capas y x a la entrada, la salida del bloque es F(x) + x.
+  </p>
+  <p>
+    Existen dos variantes principales de bloques residuales:
+  </p>
+  <ul>
+    <li><strong>Bloque básico:</strong> Compuesto por dos capas convolucionales de 3x3 con una conexión residual. Las dimensiones de entrada y salida son iguales. Es el bloque usado en ResNet-18 y ResNet-34.</li>
+    <li><strong>Bloque cuello de botella (bottleneck):</strong> Compuesto por tres capas convolucionales: una de 1x1 que reduce la dimensión, una de 3x3 que realiza la transformación principal, y otra de 1x1 que restaura la dimensión. Es más eficiente computacionalmente y se usa en ResNet-50, ResNet-101 y ResNet-152.</li>
+  </ul>
+  <p>
+    Una red residual profunda se construye apilando una serie de estos bloques residuales en secuencia. La profundidad de la red (número de capas) se puede aumentar enormemente sin los problemas de degradación que afectaban a las arquitecturas anteriores.
+  </p>
+
+  <h3 id="gradiente">Ventaja sobre el Gradiente</h3>
+  <p>
+    Otro beneficio importante de las conexiones residuales es su efecto positivo sobre el flujo del gradiente durante el entrenamiento. En redes muy profundas sin conexiones de salto, el gradiente calculado durante la retropropagación tiende a hacerse extremadamente pequeño a medida que se propaga hacia las capas iniciales, un fenómeno conocido como desvanecimiento del gradiente. Esto impide que las capas más cercanas a la entrada aprendan correctamente.
+  </p>
+  <p>
+    Las conexiones de salto crean caminos alternativos por los que el gradiente puede fluir directamente hacia capas más tempranas sin atenuarse tanto. Matemáticamente, la derivada de la función de pérdida respecto a una capa temprana siempre incluye un término que viene directamente de la conexión de identidad, lo que garantiza que el gradiente no desaparezca completamente sin importar la profundidad de la red.
+  </p>
+
+  <!-- VARIANTES Y MODELOS -->
+  <h2 id="variantes">Variantes y Modelos</h2>
+  <p>
+    Desde la ResNet original de 2015, se han desarrollado numerosas variantes y modelos derivados que extienden o mejoran la idea del aprendizaje residual:
+  </p>
+  <ul>
+    <li><strong>ResNet-18, 34, 50, 101, 152:</strong> Las versiones originales de la familia ResNet, nombradas según su número de capas. ResNet-50 y ResNet-101 son las más utilizadas como modelos base en tareas de visión por computadora.</li>
+    <li><strong>ResNeXt:</strong> Extensión de ResNet que introduce el concepto de "cardinalidad", es decir, múltiples transformaciones paralelas dentro de cada bloque, logrando mayor precisión con similar costo computacional.</li>
+    <li><strong>DenseNet:</strong> Lleva la idea de las conexiones de salto al extremo: cada capa se conecta directamente con todas las capas posteriores, no solo con la siguiente.</li>
+    <li><strong>Wide ResNet:</strong> En lugar de hacer las redes más profundas, hace los bloques más anchos (más filtros por capa), obteniendo mejores resultados con menos capas.</li>
+    <li><strong>Bloque residual de preactivación:</strong> Variante propuesta por el mismo equipo de He et al. que reordena las operaciones de normalización y activación dentro del bloque, permitiendo entrenar redes con más de 1000 capas.</li>
+  </ul>
+  <p>
+    La influencia de las conexiones residuales también se extendió a la arquitectura Transformer. Desde GPT-2, los bloques Transformer implementan bloques de preactivación residual, lo que significa que todos los grandes modelos de lenguaje modernos —GPT-3, GPT-4, BERT, Claude, LLaMA— incorporan conexiones residuales como componente fundamental de su arquitectura.
+  </p>
+
+  <!--  APLICACIONES E INFLUENCIA -->
+  <h2 id="aplicaciones">Aplicaciones e Influencia</h2>
+  <p>
+    Las redes residuales y sus conexiones de salto han tenido una influencia enorme y duradera en casi todas las áreas del aprendizaje profundo:
+  </p>
+  <ul>
+    <li><strong>Visión por computadora:</strong> ResNet y sus variantes son el estándar en tareas de clasificación de imágenes, detección de objetos y segmentación semántica. Modelos como YOLO y Faster R-CNN para detección de objetos usan backbones basados en ResNet.</li>
+    <li><strong>Procesamiento del lenguaje natural:</strong> Los Transformers, base de todos los grandes modelos de lenguaje actuales, usan conexiones residuales en cada bloque. Sin esta innovación, modelos como GPT-4 o Claude serían imposibles de entrenar.</li>
+    <li><strong>AlphaGo Zero y AlphaFold:</strong> DeepMind utilizó redes residuales en AlphaGo Zero, el sistema que dominó el juego de Go sin entrenamiento humano previo, y en AlphaFold, que resolvió el problema de predicción de estructuras de proteínas.</li>
+    <li><strong>Generación de imágenes:</strong> Muchos modelos generativos como las GANs y los modelos de difusión utilizan bloques residuales en sus arquitecturas para estabilizar el entrenamiento.</li>
+    <li><strong>Reconocimiento de voz:</strong> Los sistemas modernos de transcripción automática como Whisper de OpenAI incorporan bloques residuales en su arquitectura basada en Transformers.</li>
+  </ul>
+  <p>
+    El artículo original de He et al. de 2015 se ha convertido en uno de los trabajos científicos más citados en toda la historia de la computación, con cientos de miles de citas. La idea del aprendizaje residual es considerada uno de los avances conceptuales más importantes del aprendizaje profundo moderno, comparable en impacto al algoritmo de retropropagación.
+  </p>
+
+  <!-- REFERENCIAS -->
+  <h2 id="referencias">Referencias</h2>
+  <ul>
+    <li><a href="inteligencia_artificial.html">Inteligencia Artificial</a></li>
+    <li><a href="red_neuronal_artificial.html">Red Neuronal Artificial</a></li>
+    <li><a href="https://es.wikipedia.org/wiki/Red_neuronal_residual">Artículo original en Wikipedia: Red Neuronal Residual</a></li>
+  </ul>
+
+</body>
+</html>
